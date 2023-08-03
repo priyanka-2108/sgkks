@@ -18,7 +18,7 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((response) async {
-      MyBottomSheet.selectLanguageBottomSheet(context,  MyFunction().replaceScreenAfter(context, "/onboarding"),
+      MyBottomSheet.selectLanguageBottomSheet(context, 'onBoarding',
       );
     });
     super.initState();

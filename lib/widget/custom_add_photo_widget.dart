@@ -14,7 +14,7 @@ class CustomAddPhotoWidget extends StatelessWidget {
       this.onTap,
       this.isBorderVisible = true, this.color});
   final String title;
-  final VoidCallback? onTap;
+  final Function()? onTap;
   final bool isBorderVisible;
   final Color? color;
   @override

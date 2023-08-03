@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sgkks/module/onboarding/components/custom_position_avatar_widget.dart';
 import 'package:sgkks/module/onboarding/components/onboarding_text_widget.dart';
 import 'package:sgkks/module/verification/components/pin_put.dart';
@@ -22,16 +23,18 @@ import 'package:sgkks/widget/gradient_icon.dart';
 import '../../../utils/theme/theme_manager.dart';
 
 class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({super.key});
-
+  final String type;
+  const VerificationScreen({super.key, required this.type});
   @override
-  _VerificationScreenState createState() => _VerificationScreenState();
+  State<VerificationScreen> createState() => _VerificationScreenState();
+
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
   @override
   void initState() {
     super.initState();
+    print("type--->${widget.type}");
     isPinSet = false;
     startTimer();
   }
@@ -94,8 +97,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
           child: Container(
             height: MyFunction.getHight(context),
             width: MyFunction.getWidth(context),
-            decoration:
-                MyFunction.imageBackGround(Theme.of(context).onboardingBackGround),
+            decoration: MyFunction.imageBackGround(
+                Theme.of(context).onboardingBackGround),
             child: Padding(
               padding: EdgeInsets.fromLTRB(22.w, 35.h, 22.w, 35.h),
               child: Column(
@@ -104,22 +107,50 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //?back button
-                  CommonBackButton(color:Theme.of(context).backIconColor,
-                    boxShadow:(ThemeManager.instance.themeMode == ThemeMode.light)
-                        ?[MyFunction.getBoxShadow(  color: CustomColor.shadowColor.withOpacity(0.1),
-                      blurRadius: 15.0,
-                      spreadRadius: 0.0,
-                      dx: 0.0, dy : 4.0,),] :  [MyFunction.getBoxShadow(  color: CustomColor.shadowColor.withOpacity(0.31),
-                      blurRadius: 26.0,
-                      spreadRadius: 0.0,
-                      dx: 0.0, dy : 1.0,),],),
+                  CommonBackButton(
+                    color: Theme.of(context).backIconColor,
+                    boxShadow: (ThemeManager.instance.themeMode ==
+                            ThemeMode.light)
+                        ? [
+                            MyFunction.getBoxShadow(
+                              color: CustomColor.shadowColor.withOpacity(0.1),
+                              blurRadius: 15.0,
+                              spreadRadius: 0.0,
+                              dx: 0.0,
+                              dy: 4.0,
+                            ),
+                          ]
+                        : [
+                            MyFunction.getBoxShadow(
+                              color: CustomColor.shadowColor.withOpacity(0.31),
+                              blurRadius: 26.0,
+                              spreadRadius: 0.0,
+                              dx: 0.0,
+                              dy: 1.0,
+                            ),
+                          ],
+                  ),
                   //?verify asset
                   Padding(
-                    padding: EdgeInsets.only(bottom: 20.h),
+                    padding: EdgeInsets.only(bottom: 60.h),
                     child: Center(
-                      child: Image.asset(AssetString.verificationAsset),
+                      child: SizedBox(
+                        height: 100.h,
+                        child: OverflowBox(
+                          minHeight: 130.h,
+                          maxHeight: 210.h,
+                          child: Lottie.asset(
+                            AssetString.verificationJson,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
+                  // Center(
+                  //   child:
+                  //   Image.asset(AssetString.verificationAsset)
+
+                  // ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 8.h),
                     child: Center(
@@ -164,7 +195,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       ),
                     ),
                   //? otp
-                  getPinPut(changeUIAccordingPin,context),
+                  getPinPut(changeUIAccordingPin, context),
                   //?second count
                   Padding(
                     padding: EdgeInsets.only(top: 20.h),
@@ -183,8 +214,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     child: CommonButton(
                         title: "verifyText".tr,
                         onTap: () {
-                          MyFunction.replaceScreen(context, '/information');
+if(widget.type == "login"){MyFunction.replaceScreen(context, '/home');}else{
+  MyFunction.replaceScreen(context, '/register');
+}
+
                         }),
+
                   ),
                   //?resend
                   if (!isPinSet)

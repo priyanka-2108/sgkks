@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sgkks/utils/custom_color.dart';
 import 'package:sgkks/widget/common_text.dart';
 
@@ -25,8 +26,10 @@ class CustomDisplayRowWidget extends StatelessWidget {
           flex: 2,
           child: Row(
             children: [
-              Image.asset(
+              SvgPicture.asset(
                 fistAsset,
+                height: 20.h,
+                width: 20.w,
               ),
               SizedBox(
                 width: 7.sp,
@@ -51,7 +54,8 @@ class CustomDisplayRowWidget extends StatelessWidget {
           flex: 2,
           child: Row(
             children: [
-              Image.asset(secondAsset),
+              SvgPicture.asset(secondAsset,   height: 20.h,
+                width: 20.w,),
               SizedBox(
                 width: 7.sp,
               ),

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sgkks/utils/theme/theme_manager.dart';
-
-import '../main.dart';
 
 class CustomColor {
   static const Color linearPrimaryColor = Color(0xFF6595FF);
@@ -296,6 +293,15 @@ extension LightThemeEx on ThemeData {
         ? CustomColor.whiteShadoColor
         : CustomColor.secondaryColor2;
   }
-
+  Color get memberBoxBackColor {
+    return (ThemeManager.instance.themeMode == ThemeMode.light)
+        ? CustomColor.normalWhiteShadeColor
+        : CustomColor.linearSecondaryColor.withOpacity(0.2);
+  }
+  Color get lightWhiteColor {
+    return (ThemeManager.instance.themeMode == ThemeMode.light
+        ? CustomColor.greyColor
+        : CustomColor.greyShadeColor);
+  }
 
 }

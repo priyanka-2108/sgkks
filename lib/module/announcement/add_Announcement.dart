@@ -8,8 +8,10 @@ import 'package:sgkks/utils/my_string.dart';
 import 'package:sgkks/widget/common_back_button.dart';
 import 'package:sgkks/widget/cutom_long_text_field.dart';
 
+import '../../dialogBox/my_dialog_box.dart';
 import '../../utils/theme/theme_manager.dart';
 import '../../widget/common_button.dart';
+import '../../widget/common_image_upload.dart';
 import '../../widget/common_text.dart';
 import '../../widget/custom_add_photo_widget.dart';
 import '../../widget/custome_add_image.dart';
@@ -22,16 +24,23 @@ class AddAnnouncement extends StatefulWidget {
 }
 
 class _AddAnnouncementState extends State<AddAnnouncement> {
+  final List imageList = [
+    AssetString.addImage1,
+    AssetString.addImage2,
+    AssetString.userDetail2,
+    AssetString.peopleIcon,
+
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.fromLTRB(22.w, 35.h, 22.w, 35.h),
-          height: MyFunction.getHight(context),
-          width: MyFunction.getWidth(context),
-          decoration:
-              MyFunction.imageBackGround(Theme.of(context).onboardingBackGround),
+      body: Container(
+        padding: EdgeInsets.fromLTRB(22.w, 35.h, 22.w, 35.h),
+        height: MyFunction.getHight(context),
+        width: MyFunction.getWidth(context),
+        decoration:
+            MyFunction.imageBackGround(Theme.of(context).onboardingBackGround),
+        child: SafeArea(
           child: Stack(
             children: [
               Column(
@@ -51,66 +60,108 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                         ),
                       ),
                       //?back button
-                      CommonBackButton(color:Theme.of(context).backIconColor,
-                        boxShadow:(ThemeManager.instance.themeMode == ThemeMode.light)
-                            ?[MyFunction.getBoxShadow(  color: CustomColor.shadowColor.withOpacity(0.1),
-                          blurRadius: 15.0,
-                          spreadRadius: 0.0,
-                          dx: 0.0, dy : 4.0,),] :  [MyFunction.getBoxShadow(  color: CustomColor.shadowColor.withOpacity(0.31),
-                          blurRadius: 26.0,
-                          spreadRadius: 0.0,
-                          dx: 0.0, dy : 1.0,),],),
-                    ],
-                  ),
-                  //?add Image
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 10.h),
-                    child: CustomAddPhotoWidget(
-                      title: "addImageText".tr,
-                    ),
-                  ),
-                  //image
-                  Row(
-                    children: [
-                      CustomAddImage(
-                        image: AssetString.addImage1,
-                      ),
-                      CustomAddImage(
-                        image: AssetString.addImage2,
+                      CommonBackButton(
+                        color: Theme.of(context).backIconColor,
+                        boxShadow: (ThemeManager.instance.themeMode ==
+                                ThemeMode.light)
+                            ? [
+                                MyFunction.getBoxShadow(
+                                  color: CustomColor.shadowColor.withOpacity(0.1),
+                                  blurRadius: 15.0,
+                                  spreadRadius: 0.0,
+                                  dx: 0.0,
+                                  dy: 4.0,
+                                ),
+                              ]
+                            : [
+                                MyFunction.getBoxShadow(
+                                  color:
+                                      CustomColor.shadowColor.withOpacity(0.31),
+                                  blurRadius: 26.0,
+                                  spreadRadius: 0.0,
+                                  dx: 0.0,
+                                  dy: 1.0,
+                                ),
+                              ],
                       ),
                     ],
                   ),
+                  //?add
+                  //
 
-                  //?title widget
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
-                    child: customLongTextField(
-                      hintText: "writeTitleText".tr,
-                      labelText: "titleText".tr,
-                      fontSize: 16.sp,
-                      color: Theme.of(context).lightBlueTextColor,
-                      hight: 80.h,
-                      fontFamily: 'Poppins',
-                      dx:0,dy: 4,blurRadius: 15,spreadRadius: 0,
-                      boxColor: Theme.of(context).cardBackColor,
-                    ),
-                  ),
-                  //?description widget
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20.h),
-                    child: customLongTextField(
-                      hintText: "writeDescriptionText".tr,
-                      labelText: "descriptionText".tr,
-                      fontSize: 16.sp,
-                      color:  Theme.of(context).lightBlueTextColor,
-                      hight: 150.h,
-                      fontFamily: 'Poppins',
-                      dx:0,dy: 4,blurRadius: 15,spreadRadius: 0,
-                      boxColor: Theme.of(context).cardBackColor,
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 50.h),
+                      child: ListView(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10.h),
+                            child: CustomAddPhotoWidget(
+                              title: "addImageText".tr,
+                              onTap: () {
+                                print("image");
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        MyDialogBox.ImageUploadDialogBox(
+                                            context));
+                              },
+                            ),
+                          ),
+                          // Image
+                          Row(children: imageList.map((value) {return CustomAddImage(
+                            image:value,
+                            onTap: () {
+                              setState(() {
+                                imageList.removeAt(imageList.indexOf(value));
+                              });
+                            },
+                          );}).toList(),),
+
+
+
+                          //?title widget
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
+                            child: customLongTextField(
+                              hintText: "writeTitleText".tr,
+                              labelText: "titleText".tr,
+                              fontSize: 16.sp,
+                              color: Theme.of(context).lightBlueTextColor,
+                              hight: 80.h,
+                              fontFamily: 'Poppins',
+                              dx: 0,
+                              dy: 4,
+                              blurRadius: 15,
+                              spreadRadius: 0,
+                              boxColor: Theme.of(context).cardBackColor,
+                            ),
+                          ),
+
+                          //?description widget
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 20.h),
+                            child: customLongTextField(
+                              hintText: "writeDescriptionText".tr,
+                              labelText: "descriptionText".tr,
+                              fontSize: 16.sp,
+                              color: Theme.of(context).lightBlueTextColor,
+                              hight: 150.h,
+                              fontFamily: 'Poppins',
+                              dx: 0,
+                              dy: 4,
+                              blurRadius: 15,
+                              spreadRadius: 0,
+                              boxColor: Theme.of(context).cardBackColor,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
+
               //add button
               Positioned(
                 bottom: 0.h,
@@ -118,10 +169,9 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                 right: 28.w,
                 child: GestureDetector(
                   child: CommonButton(
-                      title: "addText".tr,
+                      title: "addAnnouncementGujText".tr,
                       onTap: () {
-                        MyFunction.replaceScreen(
-                            context, '/announcementDetail');
+                        MyFunction.backFromScreen(context);
                       }),
                 ),
               ),

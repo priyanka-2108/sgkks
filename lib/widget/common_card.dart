@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/route_manager.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sgkks/utils/custom_color.dart';
 import 'package:sgkks/utils/my_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../main.dart';
 import '../utils/theme/theme_manager.dart';
 import 'common_text.dart';
 
@@ -78,7 +76,9 @@ class CommonCardWidget extends StatelessWidget {
                       : null,
                   color: color?.withOpacity(0.2),
                 ),
-                child: Image.asset(image),
+                child:
+
+                CircleAvatar(backgroundColor: Colors.transparent, child: SvgPicture.asset(image)),
               ),
               SizedBox(
                 width: 7.w,
@@ -98,7 +98,7 @@ class CommonCardWidget extends StatelessWidget {
                   size: 20.sp,
                 ),
               if (imageCheck == true)
-                Image.asset(
+                SvgPicture.asset(
                   iconImage!,
                   color: (ThemeManager.instance.themeMode == ThemeMode.light)
                       ? null
@@ -121,6 +121,7 @@ class CommonCardListWidget extends StatefulWidget {
     this.iconCheck,
     required this.image,
     this.onChanged,
+    this.isSvgIcon = false,
   });
   final Function() onTap;
   final String title;
@@ -128,6 +129,7 @@ class CommonCardListWidget extends StatefulWidget {
   final bool? iconCheck;
   final String image;
   final Function(bool)? onChanged;
+  final bool isSvgIcon;
 
   @override
   State<CommonCardListWidget> createState() => _CommonCardListWidgetState();
@@ -141,7 +143,7 @@ class _CommonCardListWidgetState extends State<CommonCardListWidget> {
     // TODO: implement initState
     super.initState();
     isSelect =ThemeManager.instance.getTheme();
-    print("isSelecttt-->$isSelect");
+
   }
 
 
@@ -158,10 +160,20 @@ class _CommonCardListWidgetState extends State<CommonCardListWidget> {
               height: 34.h,
               width: 34.w,
               decoration: BoxDecoration(
+
                 shape: BoxShape.circle,
                 gradient: MyFunction.lightSelectedGradBackGround(),
               ),
-              child: Image.asset(widget.image),
+              child:
+       widget.isSvgIcon
+        ? CircleAvatar(backgroundColor: Colors.transparent,
+          child: SvgPicture.asset(
+              widget.image,
+
+
+      ),
+        )
+          :  Image.asset(widget.image),
             ),
             SizedBox(
               width: 7.w,

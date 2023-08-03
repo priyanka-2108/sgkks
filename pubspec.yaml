@@ -48,6 +48,16 @@ dependencies:
   get: ^4.6.5
   shared_preferences: ^2.2.0
   provider:
+  lottie:
+  url_launcher: ^6.0.12
+  share_plus: ^7.0.2
+  intl: ^0.18.1
+  circular_rotation: ^0.0.1
+  http:
+
+  sms_autofill:
+
+
 
 
   
@@ -91,6 +101,7 @@ flutter:
      - assets/backGrounds/
      - assets/backGrounds/dark_bg/
      - assets/images/dark_images/
+     - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

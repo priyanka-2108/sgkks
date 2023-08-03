@@ -13,11 +13,38 @@ import 'package:sgkks/widget/custom_add_photo_widget.dart';
 import 'package:sgkks/widget/custom_divider.dart';
 import 'package:sgkks/widget/custom_listview_with_divider.dart';
 
-class CommonStatusBodyWidget extends StatelessWidget {
+class CommonStatusBodyWidget extends StatefulWidget {
   const CommonStatusBodyWidget(
-      {super.key, required this.title, required this.userStatus});
+      {super.key, required this.title, required this.userStatus,required this.listTitle, this.firstNameEditingController, this.dateOfBirthEditingController, this.relationEditingController, this.maleEditingController, this.femaleEditingController, this.qualificationEditingController, this.image, });
   final String title;
   final UserStatus userStatus;
+  final String listTitle;
+  final TextEditingController? firstNameEditingController;
+  final TextEditingController? dateOfBirthEditingController;
+  final TextEditingController? relationEditingController;
+  final TextEditingController? maleEditingController;
+  final TextEditingController? femaleEditingController;
+  final TextEditingController? qualificationEditingController;
+  final String? image;
+
+  @override
+  State<CommonStatusBodyWidget> createState() => _CommonStatusBodyWidgetState();
+}
+
+class _CommonStatusBodyWidgetState extends State<CommonStatusBodyWidget> {
+  final TextEditingController firstName= TextEditingController(text: "");
+  final TextEditingController dateOfBirth= TextEditingController(text: "");
+  final TextEditingController relation= TextEditingController(text: "");
+  final TextEditingController male= TextEditingController(text: "");
+  final TextEditingController female= TextEditingController(text: "");
+  final TextEditingController qualification= TextEditingController(text: "");
+  final String userImage = "";
+  @override
+  void initState() {
+
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,9 +53,9 @@ class CommonStatusBodyWidget extends StatelessWidget {
         Padding(
             padding: EdgeInsets.only(bottom: 20.h),
             child: CustomAddPhotoWidget(
-              title: title,
+              title: widget.title,
               onTap: () {
-                MyBottomSheet.addDetailBottomSheet(context, () {}, userStatus);
+                MyBottomSheet.addDetailBottomSheet(context, () {}, widget.userStatus,firstName,dateOfBirth,relation,male,female,qualification,userImage);
               },
             )),
         //?List of added person widget
@@ -58,17 +85,17 @@ class CommonStatusBodyWidget extends StatelessWidget {
                       children: [
                         CustomAddPhotoWidget(
                           isBorderVisible: false,
-                          title: title,
+                          title: widget.listTitle,
                           onTap: () {
                             MyBottomSheet.addDetailBottomSheet(
-                                context, () {}, userStatus);
+                                context, () {}, widget.userStatus,firstName,dateOfBirth,relation,male,female,qualification,userImage);
                           },
                         ),
     const CustomDivider(
     topPadding: 0,
     bottomPadding: 0,
     ),
-                        const CustomListViewWithDivider(),
+                         CustomListViewWithDivider(userStatus: widget.userStatus,firstNameEditingController: widget.firstNameEditingController,dateOfBirthEditingController:widget.dateOfBirthEditingController,relationEditingController:widget.relationEditingController,maleEditingController:widget.maleEditingController,femaleEditingController:widget.femaleEditingController,qualificationEditingController:widget.qualificationEditingController,image:widget.image),
                       ],
                     ),
                   ),

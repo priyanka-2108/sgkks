@@ -69,7 +69,8 @@ class CommonTextStleWidget extends StatelessWidget {
           height: height,
           fontSize: fontSize ?? 16.sp,
           color: color ?? Theme.of(context).secondaryColor,
-          fontWeight: fontWeight ?? FontWeight.w400),
+          fontWeight: fontWeight ?? FontWeight.w400,
+      ),
     );
   }
 }

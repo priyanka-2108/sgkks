@@ -56,13 +56,22 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
             width: widget.width ?? MyFunction.getWidth(context),
             padding: EdgeInsets.all(0.5.sp),
             decoration: BoxDecoration(
-              color: Theme.of(context).customPrimaryColor,
+
+              color: widget.isBoxSelected ? CustomColor.linearSecondaryColor.withOpacity(0.1): Theme.of(context).customPrimaryColor,
               boxShadow: [
                 MyFunction.getBoxShadow(
-                    dx: 0, dy: 0, blurRadius: 25, spreadRadius: 1.0)
+
+                    spreadRadius: 0,
+                    blurRadius: 15.sp,
+
+                    color: CustomColor.shadowColor.withOpacity(0.1),
+                    blurStyle: BlurStyle.outer
+
+                    // dx: 0, dy: 0, blurRadius: 25, spreadRadius: 1.0,
+              )
               ],
               border: Border.all(
-                  color: CustomColor.linearSecondaryColor.withOpacity(0.2)),
+                  color: widget.isBoxSelected ? CustomColor.linearSecondaryColor: CustomColor.linearSecondaryColor.withOpacity(0.2)),
               borderRadius: BorderRadius.all(Radius.circular(8.sp)),
             ),
             child: Padding(
@@ -84,13 +93,10 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                         child: Text(
                           widget.title,
                           style: TextStyle(
-                            color: widget.isBoxSelected
-                                ? Theme.of(context).secondaryColor
-                                : CustomColor.greyColor,
+                            color: CustomColor.greyColor,
                             fontSize: 14.0.sp,
-                            fontWeight: widget.isBoxSelected
-                                ? FontWeight.w600
-                                : FontWeight.w400,
+                            fontWeight:
+                                 FontWeight.w400,
                           ),
                         ),
                       ),

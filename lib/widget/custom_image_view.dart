@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sgkks/utils/asset_string.dart';
 import 'package:sgkks/utils/custom_color.dart';
@@ -47,7 +48,7 @@ class CustomImageView extends StatelessWidget {
                       radius: 29.r,
                       backgroundColor:
                           CustomColor.linearSecondaryColor.withOpacity(0.3),
-                      child: Image.asset(Theme.of(context).cameraIcon),
+                      child: SvgPicture.asset(Theme.of(context).cameraIcon),
                     ),
                   ),
                   SizedBox(height: 8.h,),

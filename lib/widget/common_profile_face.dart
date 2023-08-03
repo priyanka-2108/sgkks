@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sgkks/utils/custom_color.dart';
 
+import '../utils/asset_string.dart';
+
 class CommonProfileFace extends StatelessWidget {
   const CommonProfileFace(
       {super.key,
@@ -23,11 +25,12 @@ class CommonProfileFace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
+      child:
+      Container(
         decoration: BoxDecoration(
           color: child != null
               ? CustomColor.transparent
-              : borderColor ?? Theme.of(context).secondaryColor,
+              : borderColor ??  Theme.of(context).secondaryColor,
           shape: BoxShape.circle,
         ),
         child: Padding(
@@ -37,7 +40,8 @@ class CommonProfileFace extends StatelessWidget {
                 ? CustomColor.transparent
                 : borderColor ?? Theme.of(context).secondaryColor,
             radius: radius ?? 12.r,
-            backgroundImage: child != null ? null : AssetImage(image),
+            backgroundImage:
+            child != null ? null : AssetImage(image),
             child: child,
           ),
         ),

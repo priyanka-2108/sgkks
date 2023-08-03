@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sgkks/module/onboarding/model/avatar_position.dart';
 import 'package:sgkks/utils/custom_color.dart';
 import 'package:sgkks/utils/my_string.dart';
+
+import '../shared_preference/shared_preference.dart';
 
 class MyFunction {
   static BoxDecoration imageBackGround(String asset) {
@@ -23,12 +27,13 @@ class MyFunction {
                 topRight: Radius.circular(radius ?? 30.0.sp)));
   }
 
-  replaceScreenAfter(BuildContext context, String route) {
-    Navigator.of(context).pushReplacementNamed(route);
+  replaceScreenAfter(BuildContext context, String route,[Object? arguments]) {
+    Navigator.of(context).pushReplacementNamed(route,arguments:arguments);
   }
 
-  static replaceScreen(BuildContext context, String route) {
-    Navigator.of(context).pushNamed(route);
+  static replaceScreen(BuildContext context, String route,[Object? arguments]) {
+    Navigator.of(context).pushNamed(route,arguments:arguments);
+
   }
 
   static backFromScreen(BuildContext context) {
@@ -65,7 +70,7 @@ class MyFunction {
   }
 
   static LinearGradient selectedGradBackGround() {
-    return  LinearGradient(
+    return  const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
@@ -94,7 +99,7 @@ class MyFunction {
         ]);
   }
   static LinearGradient getGradColor() {
-    return  LinearGradient(
+    return  const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
@@ -113,6 +118,13 @@ class MyFunction {
   }
 
   static List<OnboardingPageView> getOnboardingPageViewList() {
+    String getTranslation =
+    MySharedPreference.prefs.getString('localeTranslationStore')!;
+
+    Map<String, dynamic> userMap =
+    jsonDecode(getTranslation) as Map<String, dynamic>;
+
+   var locale = userMap['locale'];
     return [
       OnboardingPageView(
         textFirstLine: "bePartOfSomethingBiggerTest".tr,
@@ -125,6 +137,8 @@ class MyFunction {
         textSecondLineStart: "withLikeText".tr,
         textSecondLineMiddle: "mindedPeopleText".tr,
         textSecondLineEnd: "",
+        isSecond:true,
+        isLang: locale,
       ),
       OnboardingPageView(
         textFirstLine: "exprienceMoreText".tr,

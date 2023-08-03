@@ -4,30 +4,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
-import 'package:sgkks/module/home/view/home_page.dart';
-import 'package:sgkks/module/information/view/set_information_screen.dart';
 import 'package:sgkks/module/splash/view/splash_screen.dart';
 import 'package:sgkks/routes/routes.dart';
 import 'package:sgkks/shared_preference/shared_preference.dart';
-import 'package:sgkks/utils/custom_color.dart';
-import 'package:sgkks/utils/my_string.dart';
 import 'package:sgkks/utils/size_constant.dart';
 import 'package:sgkks/utils/theme/theme_manager.dart';
 import 'package:sgkks/utils/theme/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'localString/local_string.dart';
-import 'localString/update_language.dart';
-
-
+import 'module/home/view/home_page.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MySharedPreference.prefs = await SharedPreferences.getInstance();
   ThemeManager.instance.storeToggleTheme();
   MySharedPreference.storeMethod();
 
+
+
+
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

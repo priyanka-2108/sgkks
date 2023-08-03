@@ -1,12 +1,11 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import '../utils/asset_string.dart';
 import '../utils/custom_color.dart';
 import '../utils/my_function.dart';
-import '../utils/my_string.dart';
 import '../utils/theme/theme_manager.dart';
 import 'common_text.dart';
 
@@ -44,6 +43,7 @@ class _CommonDropDownState extends State<CommonDropDown> {
   @override
   void initState() {
     super.initState();
+    print("--->${widget.type}");
   }
 
   @override
@@ -62,17 +62,20 @@ class _CommonDropDownState extends State<CommonDropDown> {
         //dropdown
         DropdownButtonHideUnderline(
           child: DropdownButton2<String>(
+
             isExpanded: true,
             selectedItemBuilder: widget.isSearch == true
                 ? (BuildContext context) {
                     return widget.items.map((String value) {
                       return Row(
                         children: [
-                          Image.asset(widget.type == 'residential'
-                              ? AssetString.locationIcon
+
+                          SvgPicture.asset(widget.type == 'residential'
+                              ? AssetString.locationIconSvg
                               : widget.type == 'relation'
-                                  ? AssetString.peopleIcon
-                                  : AssetString.awardIcon),
+                                  ? AssetString.peopleIconSvg
+                                  : AssetString.awardIconSvg ,  height:widget.type == 'relation' ?  20.h : null,
+                            width:widget.type == 'relation' ? 20.w: null, ),
                           SizedBox(
                             width: 7.w,
                           ),
@@ -120,8 +123,13 @@ class _CommonDropDownState extends State<CommonDropDown> {
                               borderRadius: BorderRadius.circular(8.sp),
                             ),
                             constraints: const BoxConstraints(),
-                            prefixIcon: Image.asset(
-                              AssetString.searchIcon,
+                            prefixIcon: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              child: SvgPicture.asset(
+                                AssetString.searchIconSvg,
+                                height: 20.h,
+                                width: 20.h,
+                              ),
                             ),
                             hintText: "searchText".tr,
                             hintStyle: TextStyle(
@@ -164,11 +172,12 @@ class _CommonDropDownState extends State<CommonDropDown> {
                     ),
                   )
                 ] else ...[
-                  Image.asset(widget.type == 'residential'
-                      ? AssetString.locationIcon
+                  SvgPicture.asset(widget.type == 'residential'
+                      ? AssetString.locationIconSvg
                       : widget.type == 'relation'
-                          ? AssetString.peopleIcon
-                          : AssetString.awardIcon),
+                          ? AssetString.peopleIconSvg
+                          : AssetString.awardIconSvg,height:widget.type == 'relation' ?  20.h : null,
+                    width:widget.type == 'relation' ? 20.w: null,),
                   SizedBox(
                     width: 7.w,
                   ),
@@ -184,17 +193,20 @@ class _CommonDropDownState extends State<CommonDropDown> {
             ),
             items: widget.items.map((String item) {
               return DropdownMenuItem<String>(
+              
                 value: item,
                 child: widget.isSearch == true
                     ? Column(
+
                         children: [
                           Row(
                             children: [
-                              Image.asset(widget.type == 'residential'
-                                  ? AssetString.locationIcon
+                              SvgPicture.asset(widget.type == 'residential'
+                                  ? AssetString.locationIconSvg
                                   : widget.type == 'relation'
-                                      ? AssetString.peopleIcon
-                                      : AssetString.awardIcon),
+                                      ? AssetString.peopleIconSvg
+                                      : AssetString.awardIconSvg,height:widget.type == 'relation' ?  20.h : null,
+                                width:widget.type == 'relation' ? 20.w: null,),
                               SizedBox(
                                 width: 7.w,
                               ),
@@ -263,6 +275,7 @@ class _CommonDropDownState extends State<CommonDropDown> {
             dropdownStyleData: DropdownStyleData(
               maxHeight: 200,
               width: widget.width ?? 316.w,
+    // isOverButton:true,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.sp),
                 border: Border.all(
@@ -286,8 +299,11 @@ class _CommonDropDownState extends State<CommonDropDown> {
               customHeights: widget.items
                   .map(
                     (e) => (e == widget.items.last)
-                        ? 24.h
-                        : widget.menuHeight ?? 30.h,
+                        ?widget.type == "qualification" ?MediaQuery.of(context).size.height * 0.042.h  :  MediaQuery.of(context).size.height * 0.036.h
+                    // 24.h
+                        :
+                    widget.menuHeight
+                        ?? 30.h,
                   )
                   .toList(),
               padding: EdgeInsets.only(left: 14.w, right: 14.w, bottom: 0.h),

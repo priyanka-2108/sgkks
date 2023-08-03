@@ -22,12 +22,12 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-            height: MyFunction.getHight(context),
-            width: MyFunction.getWidth(context),
-            decoration:
-                MyFunction.imageBackGround(Theme.of(context).onboardingBackGround),
+      body: Container(
+          height: MyFunction.getHight(context),
+          width: MyFunction.getWidth(context),
+          decoration:
+              MyFunction.imageBackGround(Theme.of(context).onboardingBackGround),
+          child: SafeArea(
             child: Stack(
               children: [
                 Column(
@@ -62,55 +62,73 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                       ),
                     ),
                     //personal Information
-                    CommonCardWidget(
-                      image: AssetString.aboutIcon,
-                      onTap: () {},
-                      title: "personalInfoText".tr,
-                      height: 54.h,
-                      fontWeight: FontWeight.w400,
-                      imageCheck: true,
-                      iconImage: AssetString.editImage,
-                      padding: 12.w,
-                    ),
+                    Expanded(
+                      child: ListView(children: [
+                        CommonCardWidget(
+                          image: AssetString.aboutIconSvg,
+                          onTap: () {
 
-                    //residential Information
-                    CommonCardWidget(
-                      image: AssetString.residentialIcon,
-                      onTap: () {},
-                      title: "residentialInformationText".tr,
-                      height: 54.h,
-                      fontWeight: FontWeight.w400,
-                      imageCheck: true,
-                      iconImage: AssetString.editImage,
-                      padding: 12.w,
-                    ),
-                    //Business Information
-                    CommonCardWidget(
-                      image: AssetString.businessIcon,
-                      onTap: () {},
-                      title: "businessInformationText".tr,
-                      height: 54.h,
-                      fontWeight: FontWeight.w400,
-                      imageCheck: true,
-                      iconImage: AssetString.editImage,
-                      padding: 12.w,
-                    ),
-                    //change Your Status
-                    CommonCardWidget(
-                      image: AssetString.statusIcon,
-                      onTap: () {},
-                      title: "changeYourStatusText".tr,
-                      height: 54.h,
-                      fontWeight: FontWeight.w400,
-                      imageCheck: true,
-                      iconImage: AssetString.editImage,
-                      padding: 12.w,
-                    ),
+                            MyFunction.replaceScreen(
+                                context, '/editManageProfile',"personalInfo");
+                          },
+                          title: "personalInfoText".tr,
+                          height: 54.h,
+                          fontWeight: FontWeight.w400,
+                          imageCheck: true,
+                          iconImage: AssetString.editImageSvg,
+                          padding: 12.w,
+                        ),
+
+                        //residential Information
+                        CommonCardWidget(
+                          image: AssetString.residentialIconSvg,
+                          onTap: () {
+                            MyFunction.replaceScreen(
+                                context, '/editManageProfile',"residentialInfo");
+                          },
+                          title: "residentialInformationText".tr,
+                          height: 54.h,
+                          fontWeight: FontWeight.w400,
+                          imageCheck: true,
+                          iconImage: AssetString.editImageSvg,
+                          padding: 12.w,
+                        ),
+                        //Business Information
+                        CommonCardWidget(
+                          image: AssetString.businessIconSvg,
+                          onTap: () {
+                            MyFunction.replaceScreen(
+                                context, '/editManageProfile',"businessInfo");
+                          },
+                          title: "businessInformationText".tr,
+                          height: 54.h,
+                          fontWeight: FontWeight.w400,
+                          imageCheck: true,
+                          iconImage: AssetString.editImageSvg,
+                          padding: 12.w,
+                        ),
+                        //change Your Status
+                        CommonCardWidget(
+                          image: AssetString.statusIconSvg,
+                          onTap: () {
+                            MyFunction.replaceScreen(
+                                context, '/editManageProfile',"changeYourStatus");
+                          },
+                          title: "chooseYourStatusText".tr,
+                          height: 54.h,
+                          fontWeight: FontWeight.w400,
+                          imageCheck: true,
+                          iconImage: AssetString.editImageSvg,
+                          padding: 12.w,
+                        ),
+                      ],),
+                    )
+
                   ],
                 )
               ],
-            )),
-      ),
+            ),
+          )),
     );
   }
 }

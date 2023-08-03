@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../shared_preference/shared_preference.dart';
 
 class ThemeManager with ChangeNotifier {

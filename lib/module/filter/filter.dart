@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sgkks/utils/custom_color.dart';
 import 'package:sgkks/widget/common_button.dart';
 import '../../utils/asset_string.dart';
+import '../../utils/my_enum.dart';
 import '../../utils/my_function.dart';
 import '../../utils/my_string.dart';
 import '../../utils/theme/theme_manager.dart';
@@ -49,7 +50,8 @@ class _FilterPageState extends State<FilterPage> {
   ];
   String? selectedValue;
   TextEditingController searchController = TextEditingController();
-
+  Gender gender = Gender.male;
+  bool isBorder= false;
   @override
   void initState() {
     super.initState();
@@ -58,12 +60,12 @@ class _FilterPageState extends State<FilterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MyFunction.getHight(context),
-          width: MyFunction.getWidth(context),
-          decoration:
-              MyFunction.imageBackGround(Theme.of(context).onboardingBackGround),
+      body: Container(
+        height: MyFunction.getHight(context),
+        width: MyFunction.getWidth(context),
+        decoration:
+            MyFunction.imageBackGround(Theme.of(context).onboardingBackGround),
+        child: SafeArea(
           child: Padding(
             padding: EdgeInsets.fromLTRB(22.w, 35.h, 22.w, 35.h),
             child: Stack(
@@ -98,108 +100,136 @@ class _FilterPageState extends State<FilterPage> {
                       ],
                     ),
 
-                    //?village Dropdown
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20.h),
-                      child: CommonDropDown(
-                        labelText: "villageText".tr,
-                        controller: searchController,
-                        items: villageItems,
-                        menuStateChange: (isOpen) {
-                          if (!isOpen) {
-                            searchController.clear();
-                          }
-                        },
-                        text: "selectVillageText".tr,
-                      ),
-                      // CustomDropDownWidget(
-                      //   labelText: "villageText".tr,
-                      //   title: "selectVillageText".tr,
-                      //   height: 45.h,
-                      // ),
-                    ),
-                    //?city Dropdown
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20.h),
-                      child: CommonDropDown(
-                        labelText: "cityText".tr,
-                        controller: searchController,
-                        items: cityItems,
-                        menuStateChange: (isOpen) {
-                          if (!isOpen) {
-                            searchController.clear();
-                          }
-                        },
-                        text: "selectCityText".tr,
-                      ),
-                      // CustomDropDownWidget(
-                      //   labelText: "cityText".tr,
-                      //   title: "selectCityText".tr,
-                      //   height: 45.h,
-                      // ),
-                    ),
-                    //?state Dropdown
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20.h),
-                      child: CommonDropDown(
-                        labelText: "stateText".tr,
-                        controller: searchController,
-                        items: stateItems,
-                        menuStateChange: (isOpen) {
-                          if (!isOpen) {
-                            searchController.clear();
-                          }
-                        },
-                        text: "selectStateText".tr,
-                      ),
-                      // CustomDropDownWidget(
-                      //   labelText: "stateText".tr,
-                      //   title: "selectStateText".tr,
-                      //   height: 45.h,
-                      // ),
-                    ),
-                    //?gender selection
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20.h),
-                      child: Row(
-                        children: [
-                          CustomRadioButton(
-                            rightPadding: 14.w,
-                            width: (MyFunction.getWidth(context) - 15.h) / 3,
-                            isSvgIcon: true,
-                            labelText: "genderText".tr,
-                            title: "maleText".tr,
-                            asset: AssetString.maleIcon,
-                            textEditingController: addressEditingController,
-                            isBoxSelected: true,
-                            onTap: () {},
+                    Expanded(
+                      child: Padding(
+                        padding:  EdgeInsets.only(bottom:52.h),
+                        child: ListView(children: [  //?village Dropdown
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 20.h),
+                            child: CommonDropDown(
+                              labelText: "villageText".tr,
+                              controller: searchController,
+                              items: villageItems,
+                              menuStateChange: (isOpen) {
+                                if (!isOpen) {
+                                  searchController.clear();
+                                }
+                              },
+                              text: "selectVillageText".tr,
+                            ),
+                            // CustomDropDownWidget(
+                            //   labelText: "villageText".tr,
+                            //   title: "selectVillageText".tr,
+                            //   height: 45.h,
+                            // ),
                           ),
-                          SizedBox(
-                            width: 15.h,
+                          //?city Dropdown
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 20.h),
+                            child: CommonDropDown(
+                              labelText: "cityText".tr,
+                              controller: searchController,
+                              items: cityItems,
+                              menuStateChange: (isOpen) {
+                                if (!isOpen) {
+                                  searchController.clear();
+                                }
+                              },
+                              text: "selectCityText".tr,
+                            ),
+                            // CustomDropDownWidget(
+                            //   labelText: "cityText".tr,
+                            //   title: "selectCityText".tr,
+                            //   height: 45.h,
+                            // ),
                           ),
-                          CustomRadioButton(
-                            rightPadding: 14.w,
-                            width: (MyFunction.getWidth(context) - 15.h) / 3,
-                            isSvgIcon: true,
-                            labelText: "",
-                            title: "femaleText".tr,
-                            asset: AssetString.femaleIcon,
-                            textEditingController: addressEditingController,
-                            isBoxSelected: false,
-                            onTap: () {},
+                          //?state Dropdown
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 20.h),
+                            child: CommonDropDown(
+                              labelText: "stateText".tr,
+                              controller: searchController,
+                              items: stateItems,
+                              menuStateChange: (isOpen) {
+                                if (!isOpen) {
+                                  searchController.clear();
+                                }
+                              },
+                              text: "selectStateText".tr,
+                            ),
+                            // CustomDropDownWidget(
+                            //   labelText: "stateText".tr,
+                            //   title: "selectStateText".tr,
+                            //   height: 45.h,
+                            // ),
                           ),
-                        ],
+
+                          //?gender selection
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 20.h),
+                            child: Row(
+                              children: [
+                                CustomRadioButton(
+                                  rightPadding: 14.w,
+                                  width: (MyFunction.getWidth(context) - 15.h) / 3,
+                                  isSvgIcon: true,
+                                  labelText: "genderText".tr,
+                                  title: "maleText".tr,
+                                  asset: AssetString.maleIcon,
+                                  textEditingController: addressEditingController,
+                                  isBoxSelected:  (gender == Gender.male),
+                                  onTap: () {  gender = Gender.male;
+                                  setState((){});},
+                                ),
+                                SizedBox(
+                                  width: 15.h,
+                                ),
+                                CustomRadioButton(
+                                  rightPadding: 14.w,
+                                  width: (MyFunction.getWidth(context) - 15.h) / 3,
+                                  isSvgIcon: true,
+                                  labelText: "",
+                                  title: "femaleText".tr,
+                                  asset: AssetString.femaleIcon,
+                                  textEditingController: addressEditingController,
+                                  isBoxSelected: (gender == Gender.female),
+                                  onTap: () {  gender = Gender.female;
+                                  setState((){});},
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],),
                       ),
-                    ),
+                    )
+
                   ],
                 ),
                 // add button
                 Positioned(
                   bottom: 0.h,
-                  left: 28.w,
-                  right: 28.w,
-                  child: GestureDetector(
-                    child: CommonButton(title: "addText".tr, onTap: () {}),
+                  left: 8.w,
+                  right: 8.w,
+                  child: Row(
+                    children: [
+
+
+                      Expanded(
+                        child: GestureDetector(
+                          child: CommonOutlineButton(title: "resetText".tr, onTap: () {
+                            MyFunction.backFromScreen(context);
+                          }),
+                        ),
+                      ),
+                      SizedBox(width: 22.w,),
+                      Expanded(
+                        child: GestureDetector(
+                          child: CommonButton(title: "addText".tr, onTap: () {
+                            MyFunction.backFromScreen(context);
+                          } ,),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -19,7 +19,7 @@ class CustomTextFieldWidget extends StatelessWidget {
       this.width,
       this.isPreFixIcon = true,
       this.rightPadding,
-      this.isSvgIcon = false, this.color});
+      this.isSvgIcon = false, this.color, this.keyBoardType});
   final String labelText;
   final String hintText;
   final String asset;
@@ -30,6 +30,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   final double? rightPadding;
   final bool isSvgIcon;
   final Color? color;
+  final TextInputType? keyBoardType;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,16 @@ class CustomTextFieldWidget extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(left: 8.w, right: 8.w),
                       child: TextField(
+                        controller: textEditingController,
+                        keyboardType:keyBoardType,
+
+                        style:  TextStyle(
+                          color: CustomColor.greyColor,
+                          fontSize: 14.0.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
+
                             isDense: true,
                             prefixIconConstraints: const BoxConstraints(),
                             contentPadding: EdgeInsets.zero,
